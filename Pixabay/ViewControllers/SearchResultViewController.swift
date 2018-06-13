@@ -15,8 +15,9 @@ class SearchResultViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.title = NSLocalizedString("Search", comment: "Search")
         navigationItem.searchController = searchController
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.hidesSearchBarWhenScrolling = false
 
         tableView.separatorInsetReference = .fromCellEdges

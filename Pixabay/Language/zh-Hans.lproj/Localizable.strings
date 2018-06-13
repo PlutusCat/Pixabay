@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  Pixabay
+
+  Created by PlutusCat on 2018/6/13.
+  Copyright © 2018年 Pixabay. All rights reserved.
+*/
+
+"Search" = "搜索";
+"EndRefresh" = "已经是最新版本了";
