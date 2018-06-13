@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class MainViewController: UITableViewController {
 
-    var page = 1
+    var page = 2
     var hits = [MainHit]()
     var isLoadingMore = false
     var firstID: Int?
@@ -32,9 +32,9 @@ class MainViewController: UITableViewController {
         tableView.register(MainViewTableViewCell.self, forCellReuseIdentifier: ViewTableViewCell_ID)
 
         refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        refreshControl?.addTarget(self, action: #selector(refreshControlChanged), for: .valueChanged)
 
-        network(page: 1)
+        refreshNewData()
 
     }
 
@@ -46,25 +46,25 @@ class MainViewController: UITableViewController {
 
     }
 
-    @objc func refreshData() {
+    @objc func refreshControlChanged() {
 
-        network(page: 1)
-        
+        refreshNewData()
+
     }
 
     func loadMore() {
 
         guard isLoadingMore else {
             isLoadingMore = true
-            network(page: page)
+            loadMoreData()
             return
         }
 
     }
 
-    func network(page: Int) {
+    func refreshNewData() {
 
-        NetworkTools.request(URLString: apiURL+"&image_type=photo&per_page=20&page="+"\(page)",
+        NetworkTools.request(URLString: getMainURL(pageNum: 1),
                              method: .get,
                              paramet: nil,
                              finishedCallback:
@@ -74,22 +74,51 @@ class MainViewController: UITableViewController {
 
                 var indexPaths = [IndexPath]()
                 for (index, item) in MainModel(fromJson: json).hits.enumerated() {
-                    if page == 1 && index == 0 {
+                    if index == 0 {
                         if self?.firstID == item.id {
                             self?.endRefreshing()
                             return
                         }
                         self?.firstID = item.id
                     }
-                    let indexPath = IndexPath(row: (self?.hits.count)!+index, section: 0)
-                    indexPaths.append(indexPath)
-                }
 
-                self?.hits.append(contentsOf: MainModel(fromJson: json).hits)
+                    self?.hits.insert(item, at: index)
+                    let indexPath = IndexPath(row: index, section: 0)
+                    indexPaths.insert(indexPath, at: index)
+                }
 
                 DispatchQueue.main.async {
                     self?.endRefreshing()
-                    self?.tableView.insertRows(at: indexPaths, with: .automatic)
+                    self?.tableView.insertRows(at: indexPaths, with: .top)
+                }
+
+        }) { [weak self] (error) in
+
+            print("error ==", error)
+            self?.endRefreshing()
+
+        }
+    }
+
+    func loadMoreData() {
+
+        NetworkTools.request(URLString: getMainURL(pageNum: page),
+            method: .get,
+            paramet: nil,
+            finishedCallback:
+            { [weak self] (result) in
+
+                let json = JSON(result)
+
+                var indexPaths = [IndexPath]()
+                for (_, item) in MainModel(fromJson: json).hits.enumerated() {
+                    self?.hits.append(item)
+                    let indexPath = IndexPath(row: (self?.hits.count)!-1, section: 0)
+                    indexPaths.append(indexPath)
+                }
+
+                DispatchQueue.main.async {
+                    self?.tableView.insertRows(at: indexPaths, with: .top)
                 }
 
                 self?.page = (self?.page)! + 1
@@ -101,6 +130,11 @@ class MainViewController: UITableViewController {
             self?.endRefreshing()
 
         }
+
+    }
+
+    func getMainURL(pageNum: Int) -> String {
+        return apiURL+"&image_type=photo&per_page=20&page="+"\(pageNum)"
     }
 
     func endRefreshing() {
