@@ -26,6 +26,7 @@
 		41CB9B9320CF72FD0065D49A /* ViewTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CB9B9220CF72FC0065D49A /* ViewTools.swift */; };
 		41DD734420D0C9DC00FB25A2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41DD734620D0C9DC00FB25A2 /* InfoPlist.strings */; };
 		41DD734A20D0CB6000FB25A2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41DD734C20D0CB6000FB25A2 /* Localizable.strings */; };
+		41DD734F20D10AE700FB25A2 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DD734E20D10AE700FB25A2 /* PreviewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		41DD734720D0C9EA00FB25A2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		41DD734B20D0CB6000FB25A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		41DD734D20D0CB6200FB25A2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		41DD734E20D10AE700FB25A2 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		44B1F6D65AC56A4881D01232 /* Pods-Pixabay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixabay.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pixabay/Pods-Pixabay.debug.xcconfig"; sourceTree = "<group>"; };
 		5C189E5424BE21BF747BE4F6 /* Pods_Pixabay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pixabay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -74,6 +76,7 @@
 			children = (
 				41C8A74020CE460000CAA554 /* MainViewController.swift */,
 				410EE30820CFC21D002B9510 /* SearchResultViewController.swift */,
+				41DD734E20D10AE700FB25A2 /* PreviewViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				4148F56F20CE635D0022E2EB /* URLs.swift in Sources */,
 				4148F56820CE564C0022E2EB /* NetworkTools.swift in Sources */,
 				410EE30920CFC21D002B9510 /* SearchResultViewController.swift in Sources */,
+				41DD734F20D10AE700FB25A2 /* PreviewViewController.swift in Sources */,
 				419AE88420CE53C200B89D03 /* MainNavigationController.swift in Sources */,
 				41CB9B8B20CE6ED80065D49A /* MainModel.swift in Sources */,
 				41CB9B8E20CE70550065D49A /* MainHit.swift in Sources */,
@@ -481,10 +485,7 @@
 				DEVELOPMENT_TEAM = D8DP89SRM4;
 				INFOPLIST_FILE = "$(SRCROOT)/Pixabay/Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PlutusCat.Pixabay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -501,10 +502,7 @@
 				DEVELOPMENT_TEAM = D8DP89SRM4;
 				INFOPLIST_FILE = "$(SRCROOT)/Pixabay/Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PlutusCat.Pixabay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

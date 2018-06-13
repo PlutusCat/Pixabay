@@ -34,6 +34,8 @@ class MainViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshControlChanged), for: .valueChanged)
 
+        registerForPreviewing(with: self, sourceView: tableView)
+
         refreshNewData()
 
     }
@@ -124,10 +126,9 @@ class MainViewController: UITableViewController {
                 self?.page = (self?.page)! + 1
                 self?.isLoadingMore = false
 
-        }) { [weak self] (error) in
+        }) { (error) in
 
             print("error ==", error)
-            self?.endRefreshing()
 
         }
 
@@ -179,8 +180,34 @@ extension MainViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+
+        let previewVC = PreviewViewController()
+        previewVC.mainHit = hits[indexPath.row]
+        navigationController?.pushViewController(previewVC, animated: true)
     }
 
+
+}
+
+extension MainViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location), let cell = tableView.cellForRow(at: indexPath) else { return nil }
+
+        let mainCell: MainViewTableViewCell = cell as! MainViewTableViewCell
+        previewingContext.sourceRect = mainCell.frame
+
+        let previewVC = PreviewViewController()
+        previewVC.mainHit = hits[indexPath.row]
+        previewVC.placeholder_image = mainCell.imageView?.image
+
+        return previewVC
+    }
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+
+        showDetailViewController(viewControllerToCommit, sender: nil)
+
+    }
 
 }
 

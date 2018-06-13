@@ -47,7 +47,7 @@ class MainViewTableViewCell: UITableViewCell {
 
     func reloadData(with model: MainHit) {
 
-        pixabay_imageView.kf.setImage(with: URL(string: "\(model.webformatURL!)"),
+        pixabay_imageView.kf.setImage(with: URL(string: "\(model.largeImageURL!)"),
                                       placeholder: nil,
                                       options: [.transition(.fade(0.15))],
                                       progressBlock: nil,
